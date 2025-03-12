@@ -1,0 +1,723 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">dolphin_cronjob_listing.dolphin_cronjob_listing_data_source</item>
+            <item name="deps" xsi:type="string">dolphin_cronjob_listing.dolphin_cronjob_listing_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">mpcronschedule_job_columns</item>
+        <item name="buttons" xsi:type="array">
+            <item name="add" xsi:type="array">
+                <item name="name" xsi:type="string">add</item>
+                <item name="label" xsi:type="string" translate="true">Add New Student</item>
+                <item name="class" xsi:type="string">primary</item>
+                <item name="url" xsi:type="string">*/*/insert</item>
+            </item>
+        </item>
+
+        <item name="buttons" xsi:type="array">
+            <item name="Run" xsi:type="array">
+                <item name="name" xsi:type="string">Run</item>
+                <item name="label" xsi:type="string" translate="true">Run Cron</item>
+                <item name="class" xsi:type="string">primary</item>
+                <item name="url" xsi:type="string">*/*/run</item>
+            </item>
+        </item>
+    </argument>
+    <dataSource name="dolphin_cronjob_listing_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Dolphin\CronGrid\Ui\DataProvider\JobProvider</argument>
+            <argument name="name" xsi:type="string">dolphin_cronjob_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">name</argument>
+            <argument name="requestFieldName" xsi:type="string">name</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">name</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="sticky" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="templates" xsi:type="array">
+                        <item name="filters" xsi:type="array">
+                            <item name="select" xsi:type="array">
+                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>
+                                <item name="template" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </filters>
+        <massaction name="listing_massaction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+                </item>
+            </argument>
+            <action name="delete">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">delete</item>
+                        <item name="label" xsi:type="string" translate="true">Delete</item>
+                        <item name="url" xsi:type="url" path="mpcronschedule/job/massDelete"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Delete</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure to delete selected items?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="mpcronschedule_job_columns">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="editorConfig" xsi:type="array">
+                    <item name="selectProvider" xsi:type="string">dolphin_cronjob_listing.dolphin_cronjob_listing.mpcronschedule_job_columns.ids</item>
+                    <item name="enabled" xsi:type="boolean">true</item>
+                    <item name="indexField" xsi:type="string">name</item>
+                    <item name="clientConfig" xsi:type="array">
+                        <item name="saveUrl" xsi:type="url" path="mpcronschedule/job/inlineEdit"/>
+                        <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+                <item name="childDefaults" xsi:type="array">
+                    <item name="fieldAction" xsi:type="array">
+                        <item name="provider" xsi:type="string">dolphin_cronjob_listing.dolphin_cronjob_listing.mpcronschedule_job_columns_editor</item>
+                        <item name="target" xsi:type="string">startEdit</item>
+                        <item name="params" xsi:type="array">
+                            <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                            <item name="1" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </item>
+            </item>
+        </argument>
+        <selectionsColumn name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">55</item>
+                    <item name="indexField" xsi:type="string">name</item>
+                </item>
+            </argument>
+        </selectionsColumn>
+        <column name="schedule_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">ID</item>
+                </item>
+            </argument>
+        </column>
+        <column name="name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">Cron Job Code</item>
+                </item>
+            </argument>
+        </column>
+        <column name="group">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Dolphin\CronGrid\Model\Config\Source\Group</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Group Name</item>
+                </item>
+            </argument>
+        </column>
+        <column name="instance">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Instance Classpath</item>
+                </item>
+            </argument>
+        </column>
+        <column name="method">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Job Method</item>
+                </item>
+            </argument>
+        </column>
+        <column name="schedule">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Time Schedule</item>
+                </item>
+            </argument>
+        </column>
+        <column name="Modify">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="editor" xsi:type="string">text</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Modify</item>
+                </item>
+            </argument>
+        </column>
+        <actionsColumn name="actions" class="Dolphin\CronGrid\Ui\Component\Listing\Column\CustomAction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="indexField" xsi:type="string">name</item>
+                </item>
+            </argument>
+        </actionsColumn>
+    </columns>
+</listing>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+
+namespace Dolphin\CronGrid\Ui\DataProvider;
+
+use Magento\Framework\Api\Filter;
+use Magento\Ui\DataProvider\AbstractDataProvider;
+use Magento\Framework\ObjectManagerInterface;
+use Magento\Framework\Reflection\DataObjectProcessor;
+use Magento\Cron\Model\ResourceModel\Schedule\Collection as ScheduleCollection;
+use Magento\Cron\Model\ResourceModel\Schedule\CollectionFactory as ScheduleCollectionFactory;
+use Magento\Cron\Model\Config;
+
+class JobProvider extends AbstractDataProvider
+{
+
+    protected $size = 20;
+    protected $offset = 1;
+    protected $filters = [];
+    protected $sortField = 'name';
+    protected $sortDir = 'asc';
+    private $scheduleCollectionFactory;
+    private $loadedJobs = null;
+    private $cronConfig;
+
+    public function __construct(
+        $name,
+        $primaryFieldName,
+        $requestFieldName,
+        ScheduleCollectionFactory $scheduleCollectionFactory,
+        Config $cronConfig,
+        array $meta = [],
+        array $data = []
+    ) {
+        $this->scheduleCollectionFactory = $scheduleCollectionFactory;
+        $this->cronConfig = $cronConfig;
+        parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
+    }
+
+    public function addFilter(Filter $filter)
+    {
+        $this->filters[$filter->getConditionType()] = [
+            'field' => $filter->getField(),
+            'value' => $filter->getValue()
+        ];
+    }
+
+    public function addOrder($field, $direction)
+    {
+        $this->sortField = $field;
+        $this->sortDir = strtolower($direction);
+    }
+
+    public function setLimit($offset, $size)
+    {
+        $this->size = $size;
+        $this->offset = $offset;
+    }
+
+
+
+
+    private function getJobs()
+    {
+        if ($this->loadedJobs === null) {
+            $collection = $this->scheduleCollectionFactory->create();
+            $collection->addFieldToSelect(['job_code', 'status', 'messages'])
+                    ->addFieldToSelect(['created_at', 'scheduled_at', 'executed_at', 'finished_at'])
+                    ->setOrder('scheduled_at', 'DESC')
+                    ->getSelect()
+                    ->group('job_code');
+
+            $cronJobs = $this->cronConfig->getJobs();
+            $jobs = [];
+            
+            foreach ($collection as $schedule) {
+                $jobCode = $schedule->getJobCode();
+                $instancePath = '';
+                $method = '';
+                $cronExpr = '';
+                
+                // Find instance, method and cron expression from configuration
+                foreach ($cronJobs as $group => $groupJobs) {
+                    if (isset($groupJobs[$jobCode])) {
+                        $instancePath = isset($groupJobs[$jobCode]['instance']) 
+                            ? $groupJobs[$jobCode]['instance'] 
+                            : '';
+                        $method = isset($groupJobs[$jobCode]['method']) 
+                            ? $groupJobs[$jobCode]['method'] 
+                            : '';
+                        $cronExpr = isset($groupJobs[$jobCode]['schedule']) 
+                            ? $groupJobs[$jobCode]['schedule'] 
+                            : '* * * * *';
+                        break;
+                    }
+                }
+
+                $jobs[] = [
+                    'schedule_id' => $schedule->getScheduleId(),
+                    'name' => $jobCode,
+                    'group' => $this->extractGroupFromJobCode($jobCode),
+                    'instance' => $instancePath,
+                    'method' => $method,
+                    'schedule' => $cronExpr, // Changed from $schedule->getScheduledAt()
+                    'status' => $schedule->getStatus(),
+                    'messages' => $schedule->getMessages(),
+                    'created_at' => $schedule->getCreatedAt(),
+                    'executed_at' => $schedule->getExecutedAt(),
+                    'finished_at' => $schedule->getFinishedAt()
+                ];
+            }
+            
+            $this->loadedJobs = $jobs;
+        }
+
+        return $this->loadedJobs;
+    }
+
+    private function extractGroupFromJobCode($jobCode)
+    {
+        $parts = explode('_', $jobCode);
+        return count($parts) > 1 ? $parts[0] : 'default';
+    }
+  
+    public function getData()
+    {
+        $items = $this->getJobs();
+
+        // add filter
+        foreach ($this->filters as $type => $filter) {
+            $field = $filter['field'];
+            $value = str_replace('\\', '', $filter['value']);
+
+            $items = array_filter($items, function ($item) use ($field, $value, $type) {
+                switch ($type) {
+                    case 'like':
+                        return stripos($item[$field], substr($value, '1', '-1')) !== false;
+                    case 'eq':
+                        return $item[$field] === $value;
+                    case 'in':
+                        return in_array($item[$field], array_values($value), true);
+                    default:
+                        return true;
+                }
+            });
+        }
+
+        // add order
+        $sortField = $this->sortField;
+        $sortDir = $this->sortDir;
+        usort($items, function ($a, $b) use ($sortField, $sortDir) {
+            return $sortDir === 'asc' ? $a[$sortField] <=> $b[$sortField] : $b[$sortField] <=> $a[$sortField];
+        });
+
+        $totalRecords = count($items);
+
+        // set limit
+        $items = array_slice($items, ($this->offset - 1) * $this->size, $this->size);
+
+        return compact('totalRecords', 'items');
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+namespace Dolphin\CronGrid\Controller\Adminhtml\joblist;
+
+use Magento\Backend\App\Action;
+use Magento\Backend\App\Action\Context;
+use Magento\Framework\Controller\Result\JsonFactory;
+use Magento\Framework\App\Config\Storage\WriterInterface;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\App\Cache\TypeListInterface;
+
+class CronSchedule extends Action
+{
+    /**
+     * @var JsonFactory
+     */
+    protected $jsonFactory;
+
+    /**
+     * @var WriterInterface
+     */
+    protected $configWriter;
+    
+    /**
+     * @var TypeListInterface
+     */
+    protected $cacheTypeList;
+
+    /**
+     * @param Context $context
+     * @param JsonFactory $jsonFactory
+     * @param WriterInterface $configWriter
+     * @param TypeListInterface $cacheTypeList
+     */
+    public function __construct(
+        Context $context,
+        JsonFactory $jsonFactory,
+        WriterInterface $configWriter,
+        TypeListInterface $cacheTypeList
+    ) {
+        parent::__construct($context);
+        $this->jsonFactory = $jsonFactory;
+        $this->configWriter = $configWriter;
+        $this->cacheTypeList = $cacheTypeList;
+    }
+
+    /**
+     * @return \Magento\Framework\Controller\Result\Json
+     */
+    public function execute()
+    {
+        $resultJson = $this->jsonFactory->create();
+        $error = false;
+        $messages = [];
+
+        $postItems = $this->getRequest()->getParam('items', []);
+        if (!count($postItems)) {
+            $messages[] = __('Please correct the data sent.');
+            $error = true;
+            return $resultJson->setData([
+                'messages' => $messages,
+                'error' => $error
+            ]);
+        }
+
+        foreach ($postItems as $jobName => $postData) {
+            try {
+                // Check if Modify column data is present
+                if (!isset($postData['Modify']) || empty($postData['Modify'])) {
+                    continue; // Skip if no modification is requested
+                }
+
+                $newSchedule = $postData['Modify'];
+                
+                // Validate the cron expression (basic validation)
+                if (!$this->validateCronExpression($newSchedule)) {
+                    throw new LocalizedException(__('Invalid cron expression format: %1', $newSchedule));
+                }
+
+                // Update the cron schedule in the system configuration
+                $configPath = 'crontab/default/jobs/' . $jobName . '/schedule/cron_expr';
+                $this->configWriter->save($configPath, $newSchedule);
+                
+                // Clear config cache to apply changes
+                $this->cacheTypeList->cleanType('config');
+                
+            } catch (LocalizedException $e) {
+                $messages[] = $e->getMessage();
+                $error = true;
+            } catch (\Exception $e) {
+                $messages[] = __('Could not save the cron job: %1', $e->getMessage());
+                $error = true;
+            }
+        }
+
+        return $resultJson->setData([
+            'messages' => $messages,
+            'error' => $error
+        ]);
+    }
+
+    /**
+     * Basic validation for cron expression format
+     * 
+     * @param string $expression
+     * @return bool
+     */
+
+    private function validateCronExpression($expression)
+    {
+        // Simple validation checking format: "* * * * *" (minute hour day month weekday)
+        $parts = explode(' ', trim($expression));
+        if (count($parts) !== 5) {
+            return false;
+        }
+
+        // Improved regex pattern
+        $pattern = '/^(\*|([0-9]+|\*\/[0-9]+|\d+(-\d+)?(,\d+(-\d+)?)*))$/';
+
+        foreach ($parts as $part) {
+            if (!preg_match($pattern, $part)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+    /**
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Dolphin_CronGrid::cron_manage');
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+
+namespace Dolphin\CronGrid\Controller\Adminhtml\joblist;
+
+use Magento\Backend\App\Action;
+use Magento\Backend\App\Action\Context;
+use Magento\Framework\Controller\Result\JsonFactory;
+use Magento\Framework\App\Config\Storage\WriterInterface;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\App\Cache\TypeListInterface;
+use Magento\Cron\Model\ResourceModel\Schedule\CollectionFactory as ScheduleCollectionFactory;
+use Magento\Cron\Model\ScheduleFactory;
+use Magento\Framework\Stdlib\DateTime\DateTime;
+
+class CronSchedule extends Action
+{
+    protected $jsonFactory;
+    protected $configWriter;
+    protected $cacheTypeList;
+    protected $scheduleCollectionFactory;
+    protected $scheduleFactory;
+    protected $dateTime;
+
+    public function __construct(
+        Context $context,
+        JsonFactory $jsonFactory,
+        WriterInterface $configWriter,
+        TypeListInterface $cacheTypeList,
+        ScheduleCollectionFactory $scheduleCollectionFactory,
+        ScheduleFactory $scheduleFactory,
+        DateTime $dateTime
+    ) {
+        parent::__construct($context);
+        $this->jsonFactory = $jsonFactory;
+        $this->configWriter = $configWriter;
+        $this->cacheTypeList = $cacheTypeList;
+        $this->scheduleCollectionFactory = $scheduleCollectionFactory;
+        $this->scheduleFactory = $scheduleFactory;
+        $this->dateTime = $dateTime;
+    }
+
+    public function execute()
+    {
+        $resultJson = $this->jsonFactory->create();
+        $error = false;
+        $messages = [];
+
+        $postItems = $this->getRequest()->getParam('items', []);
+        if (!count($postItems)) {
+            $messages[] = __('Please correct the data sent.');
+            $error = true;
+            return $resultJson->setData([
+                'messages' => $messages,
+                'error' => $error
+            ]);
+        }
+
+        foreach ($postItems as $jobName => $postData) {
+            try {
+                if (!isset($postData['Modify']) || empty($postData['Modify'])) {
+                    continue; 
+                }
+
+                $newSchedule = $postData['Modify'];
+                
+                if (!$this->validateCronExpression($newSchedule)) {
+                    throw new LocalizedException(__('Invalid cron expression format: %1', $newSchedule));
+                }
+
+                // Save to config (as before)
+                // $configPath = 'crontab/default/jobs/' . $jobName . '/schedule/cron_expr';
+                // $this->configWriter->save($configPath, $newSchedule);
+                
+                // Update the modify_schedule column in cron_schedule table for all pending jobs
+                $this->updateCronScheduleTable($jobName, $newSchedule);
+
+                $this->cacheTypeList->cleanType('config');
+
+                $messages[] = __('Cron schedule for "%1" has been updated to "%2" and pending jobs have been updated', $jobName, $newSchedule);
+                
+            } catch (LocalizedException $e) {
+                $messages[] = $e->getMessage();
+                $error = true;
+            } catch (\Exception $e) {
+                $messages[] = __('Could not save the cron job: %1', $e->getMessage());
+                $error = true;
+            }
+        }
+
+        return $resultJson->setData([
+            'messages' => $messages,
+            'error' => $error
+        ]);
+    }
+
+    /**
+     * Update the modify_schedule column in cron_schedule table
+     *
+     * @param string $jobCode
+     * @param string $newSchedule
+     * @return void
+     */
+
+
+    private function updateCronScheduleTable($jobCode, $newSchedule)
+    {
+        // Get pending jobs matching the job code
+        $scheduleCollection = $this->scheduleCollectionFactory->create();
+        $scheduleCollection->addFieldToFilter('job_code', $jobCode);
+        
+        if ($scheduleCollection->getSize() > 0) {
+            $connection = $scheduleCollection->getConnection();
+            
+            // Update all matching jobs with the new cron expression
+            $connection->update(
+                $scheduleCollection->getMainTable(),
+                ['modify_schedule' => $newSchedule],  // Save the cron expression itself
+                ['job_code = ?' => $jobCode]
+            );
+        }
+    }
+
+    private function validateCronExpression($expression)
+    {
+        // Simple validation checking format: "* * * * *" (minute hour day month weekday)
+        $parts = explode(' ', trim($expression));
+        if (count($parts) !== 5) {
+            return false;
+        }
+
+        // Improved regex pattern
+        $pattern = '/^(\*|([0-9]+|\*\/[0-9]+|\d+(-\d+)?(,\d+(-\d+)?)*))$/';
+
+        foreach ($parts as $part) {
+            if (!preg_match($pattern, $part)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Dolphin_CronGrid::cron_manage');
+    }
+}
+

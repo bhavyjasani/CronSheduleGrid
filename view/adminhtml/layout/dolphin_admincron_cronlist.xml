@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout.xsd">
+    <update handle="styles"/>
+    <head>
+        <css src="Dolphin_CronGrid::css/style.css"/>
+    </head>
+    <referenceContainer name="content">
+        <uiComponent name="dolphin_crontask_listing"/>
+    </referenceContainer>
+</layout>

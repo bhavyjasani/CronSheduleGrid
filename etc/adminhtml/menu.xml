@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework/Menu/etc/menu.xsd">
+    <menu>
+        <add id="Dolphin_CronGrid::main_menu" title="Cron Grid" module="Dolphin_CronGrid" sortOrder="10" resource="Dolphin_CronGrid::main_menu"/>
+
+        <add id="Dolphin_CronGrid::TaskList" title="Cron Task List" module="Dolphin_CronGrid" sortOrder="1" parent="Dolphin_CronGrid::main_menu" action="dolphin/admincron/cronlist" resource="Dolphin_CronGrid::main_menu"/>
+        <add id="Dolphin_CronGrid::JobList" title="Cron Job List" module="Dolphin_CronGrid" sortOrder="2" parent="Dolphin_CronGrid::main_menu" action="dolphin/joblist/joblist" resource="Dolphin_CronGrid::main_menu"/>
+    </menu>
+</config>
