@@ -40,8 +40,6 @@ class Cronlist extends Action
      */
     public function execute()
     {
-        $resultPage = $this->resultPageFactory->create();
-        $resultPage->getConfig()->getTitle()->prepend(__('Cron Task List'));
-        return $resultPage;
+    
     }
 }
